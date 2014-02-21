@@ -87,30 +87,42 @@ int main(){
 			}
 		}
 
-		if (!myMachine.is_busy() && !q.is_empty()){
-			//if available			if car is waiting
-			
-			int next = q.get_front();	//take a car from the front of the queue
-			q.pop();
-			myAverager.plus_next_number(i - next);	//subtracting time car was added from current time
-			myMachine.start_washing();
+		//if (!myMachine.is_busy() && !q.is_empty()){
+		//	//if available			if car is waiting
+		//	
+		//	int next = q.get_front();	//take a car from the front of the queue
+		//	q.pop();
+		//	myAverager.plus_next_number(i - next);	//subtracting time car was added from current time
+		//	myMachine.start_washing();
+		//}
+
+		for (size_t j = 0; j < wash_machines.size(); j++)
+		{
+			if (!wash_machines[j].is_busy() && !queues[j].is_empty())
+			{
+				averagers[j].plus_next_number(i - queues[j].get_front());
+				queues[j].pop();
+				wash_machines[j].start_washing();
+			}
+
+			wash_machines[j].one_second();
 		}
 
-		myMachine.one_second();
+		//myMachine.one_second();
 
-		if (!myMachine2.is_busy() && !q2.is_empty()){
-			//if available			if car is waiting
+		//if (!myMachine2.is_busy() && !q2.is_empty()){
+		//	//if available			if car is waiting
 
-			int next = q2.get_front();	//take a car from the front of the queue
-			q2.pop();
-			myAverager2.plus_next_number(i - next);	//subtracting time car was added from current time
-			myMachine2.start_washing();
-		}
+		//	int next = q2.get_front();	//take a car from the front of the queue
+		//	q2.pop();
+		//	myAverager2.plus_next_number(i - next);	//subtracting time car was added from current time
+		//	myMachine2.start_washing();
+		//}
 
-		myMachine2.one_second();
+		//myMachine2.one_second();
 	}
 
-	while (!q.is_empty()){
+	/*while (!q.is_empty()){
 		q.pop();
 		car_denied++;
 	}
@@ -118,6 +130,14 @@ int main(){
 	while (!q2.is_empty()){
 		q2.pop();
 		car_denied++;
+	}*/
+	for (size_t i = 0; i < queues.size(); i++)
+	{
+		while (!queues[i].is_empty())
+		{
+			queues[i].pop();
+			car_denied++;
+		}
 	}
 
 	cout << "Average waiting time for first machine: " << myAverager.average_time() << endl;
