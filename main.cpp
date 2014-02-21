@@ -8,7 +8,6 @@ using namespace std;
 using namespace car_wash;
 
 int main(){
-	Queue<int> q;
 
 	int simulation_length;
 	int number_of_washers;
@@ -29,31 +28,46 @@ int main(){
 
 	vector<wash_machine> wash_machines;
 	vector<averager> averagers;
+	vector<Queue<int>> queues;
 	for (size_t i = 0; i < number_of_washers; i++)
 	{
 		wash_machine new_machine(wash_time);
 		wash_machines.push_back(new_machine);
 
+		Queue<int> = new_queue;
+		queues.push_back(new_queue);
+
 		averager new_averager;
 		averagers.push_back(new_averager);
 	}
+
+	arrival car_generator(arrival_rate);
 
 	int car_denied = 0; 
 	
 	srand(time(NULL));
 
-	for (int i = 1; i <= simulation_length; i++){
-		if (myArrival.is_car_coming()){
-			if(!q.is_full() && !q2.is_full()){
-				if (q.get_size() <= q2.get_size()){
-					q.push(i);		//put car in queue
-				}
-				else{
-					q2.push(i);
-				}
-			}
-			else{
-				car_denied++;
+	for (size_t i = 1; i <= simulation_length; i++){
+	//	if (myArrival.is_car_coming()){
+	//		if(!q.is_full() && !q2.is_full()){
+	//			if (q.get_size() <= q2.get_size()){
+	//				q.push(i);		//put car in queue
+	//			}
+	//			else{
+	//				q2.push(i);
+	//			}
+	//		}
+	//		else{
+	//			car_denied++;
+	//		}
+	//	}
+
+		if (car_generator.is_car_coming())
+		{
+			
+			for (size_t i = 0; i < wash_machines.size(); i++)
+			{
+
 			}
 		}
 
