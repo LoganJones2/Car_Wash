@@ -12,17 +12,17 @@ int main(){
 
 	int simulation_length;
 	int wash_time;
-	float r_rate;
-	cout << "Enter simulation_length, wash_time, and r_rate." << endl;
+	float arrival_rate;
+	cout << "Enter simulation_length, wash_time, and arrival_rate." << endl;
 	cout << "Enter simulation length: ";
 	cin >> simulation_length;
 	cout << "Enter washing time: ";
 	cin >> wash_time;
 	cout << "Enter arrival rate: ";
-	cin >> r_rate;
+	cin >> arrival_rate;
 
 	wash_machine myMachine(wash_time), myMachine2(wash_time);
-	arrival myArrival(r_rate), myArrival2(r_rate);
+	arrival myArrival(arrival_rate), myArrival2(arrival_rate);
 	averager myAverager, myAverager2;
 	int car_denied = 0; 
 	
