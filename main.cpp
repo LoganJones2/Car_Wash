@@ -2,6 +2,7 @@
 #include "Queue.h"
 #include <iostream>
 #include <time.h>
+#include <vector>
 
 using namespace std;
 using namespace car_wash;
