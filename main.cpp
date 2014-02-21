@@ -34,7 +34,7 @@ int main(){
 		wash_machine new_machine(wash_time);
 		wash_machines.push_back(new_machine);
 
-		Queue<int> = new_queue;
+		Queue<int>  new_queue;
 		queues.push_back(new_queue);
 
 		averager new_averager;
@@ -64,10 +64,26 @@ int main(){
 
 		if (car_generator.is_car_coming())
 		{
-			
-			for (size_t i = 0; i < wash_machines.size(); i++)
+			int shortest_queue = -1;
+			for (size_t j = 0; j < wash_machines.size(); j++)
 			{
+				if (!queues[j].is_full() && j == -1)
+				{
+					shortest_queue = j;
+				}
+				else if (!queues[j].is_full() && queues[j].get_size() < queues[shortest_queue].get_size())
+				{
+					shortest_queue = j;
+				}
+			}
 
+			if (shortest_queue == -1)
+			{
+				car_denied++;
+			}
+			else
+			{
+				queues[shortest_queue].push(i);
 			}
 		}
 
