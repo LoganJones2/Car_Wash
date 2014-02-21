@@ -8,9 +8,10 @@ using namespace std;
 using namespace car_wash;
 
 int main(){
-	Queue<int> q, q2;
+	Queue<int> q;
 
-	int simulation_length, wash_time;
+	int simulation_length;
+	int wash_time;
 	float r_rate;
 	cout << "Enter simulation_length, wash_time, and r_rate." << endl;
 	cout << "Enter simulation length: ";
