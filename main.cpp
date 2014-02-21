@@ -23,9 +23,12 @@ int main(){
 	cout << "Enter arrival rate: ";
 	cin >> arrival_rate;
 
-	wash_machine myMachine(wash_time), myMachine2(wash_time);
+	/*wash_machine myMachine(wash_time), myMachine2(wash_time);
 	arrival myArrival(arrival_rate), myArrival2(arrival_rate);
-	averager myAverager, myAverager2;
+	averager myAverager, myAverager2;*/
+
+	vector<wash_machine> wash_machines;
+
 	int car_denied = 0; 
 	
 	srand(time(NULL));
