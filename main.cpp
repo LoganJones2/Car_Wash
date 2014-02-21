@@ -11,11 +11,13 @@ int main(){
 	Queue<int> q;
 
 	int simulation_length;
+	int number_of_washers;
 	int wash_time;
 	float arrival_rate;
-	cout << "Enter simulation_length, wash_time, and arrival_rate." << endl;
 	cout << "Enter simulation length: ";
 	cin >> simulation_length;
+	cout << "Enter number of washers: ";
+	cin >> number_of_washers;
 	cout << "Enter washing time: ";
 	cin >> wash_time;
 	cout << "Enter arrival rate: ";
