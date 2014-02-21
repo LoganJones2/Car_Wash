@@ -28,11 +28,16 @@ int main(){
 	averager myAverager, myAverager2;*/
 
 	vector<wash_machine> wash_machines;
+	vector<averager> averagers;
 	for (size_t i = 0; i < number_of_washers; i++)
 	{
 		wash_machine new_machine(wash_time);
 		wash_machines.push_back(new_machine);
+
+		averager new_averager;
+		averagers.push_back(new_averager);
 	}
+
 	int car_denied = 0; 
 	
 	srand(time(NULL));
