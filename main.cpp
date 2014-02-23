@@ -2,82 +2,103 @@
 #include "Queue.h"
 #include <iostream>
 #include <time.h>
+#include <vector>
 
 using namespace std;
 using namespace car_wash;
 
 int main(){
-	Queue<int> q, q2;
 
-	int simulation_length, wash_time;
-	float r_rate;
-	cout << "Enter simulation_length, wash_time, and r_rate." << endl;
+	int simulation_length;
+	int number_of_washers;
+	int wash_time;
+	float arrival_rate;
 	cout << "Enter simulation length: ";
 	cin >> simulation_length;
+	cout << "Enter number of washers: ";
+	cin >> number_of_washers;
 	cout << "Enter washing time: ";
 	cin >> wash_time;
 	cout << "Enter arrival rate: ";
-	cin >> r_rate;
+	cin >> arrival_rate;
 
-	wash_machine myMachine(wash_time), myMachine2(wash_time);
-	arrival myArrival(r_rate), myArrival2(r_rate);
-	averager myAverager, myAverager2;
+	vector<wash_machine> wash_machines;
+	vector<averager> averagers;
+	vector<Queue<int>> queues;
+	for (size_t i = 0; i < number_of_washers; i++)
+	{
+		wash_machine new_machine(wash_time);
+		wash_machines.push_back(new_machine);
+
+		Queue<int>  new_queue;
+		queues.push_back(new_queue);
+
+		averager new_averager;
+		averagers.push_back(new_averager);
+	}
+
+	arrival car_generator(arrival_rate);
+
 	int car_denied = 0; 
 	
 	srand(time(NULL));
 
-	for (int i = 1; i <= simulation_length; i++){
-		if (myArrival.is_car_coming()){
-			if(!q.is_full() && !q2.is_full()){
-				if (q.get_size() <= q2.get_size()){
-					q.push(i);		//put car in queue
+	for (size_t i = 1; i <= simulation_length; i++)
+	{
+		if (car_generator.is_car_coming())
+		{
+			int shortest_queue = -1;
+			for (size_t j = 0; j < queues.size(); j++)
+			{
+				if (!queues[j].is_full() && shortest_queue == -1)
+				{
+					shortest_queue = j;
 				}
-				else{
-					q2.push(i);
+				else if (!queues[j].is_full() && queues[j].get_size() < queues[shortest_queue].get_size())
+				{
+					shortest_queue = j;
 				}
 			}
-			else{
+
+			if (shortest_queue == -1)
+			{
 				car_denied++;
 			}
+			else
+			{
+				queues[shortest_queue].push(i);
+				cout << "Car was placed in queue " << shortest_queue << endl;
+			}
 		}
 
-		if (!myMachine.is_busy() && !q.is_empty()){
-			//if available			if car is waiting
-			
-			int next = q.get_front();	//take a car from the front of the queue
-			q.pop();
-			myAverager.plus_next_number(i - next);	//subtracting time car was added from current time
-			myMachine.start_washing();
+	for (size_t j = 0; j < wash_machines.size(); j++)
+		{
+			if (!wash_machines[j].is_busy() && !queues[j].is_empty())
+			{
+				averagers[j].plus_next_number(i - queues[j].get_front());
+				queues[j].pop();
+				wash_machines[j].start_washing();
+			}
+
+			wash_machines[j].one_second();
 		}
+	}
 
-		myMachine.one_second();
-
-		if (!myMachine2.is_busy() && !q2.is_empty()){
-			//if available			if car is waiting
-
-			int next = q2.get_front();	//take a car from the front of the queue
-			q2.pop();
-			myAverager2.plus_next_number(i - next);	//subtracting time car was added from current time
-			myMachine2.start_washing();
+	for (size_t i = 0; i < queues.size(); i++)
+	{
+		while (!queues[i].is_empty())
+		{
+			queues[i].pop();
+			car_denied++;
 		}
-
-		myMachine2.one_second();
 	}
 
-	while (!q.is_empty()){
-		q.pop();
-		car_denied++;
+	for (size_t i = 0; i < wash_machines.size(); i++)
+	{
+		cout << "Average waiting time for first machine: " << averagers[i].average_time() << endl;
+		cout << "Total number of cars serviced by first machine: " << averagers[i].how_many_cars() << endl;
 	}
 
-	while (!q2.is_empty()){
-		q2.pop();
-		car_denied++;
-	}
-
-	cout << "Average waiting time for first machine: " << myAverager.average_time() << endl;
-	cout << "Total number of cars serviced by first machine: " << myAverager.how_many_cars() << endl;
-	cout << "Average waiting time for second machine: " << myAverager2.average_time() << endl;
-	cout << "Total number of cars serviced by second machine: " << myAverager2.how_many_cars() << endl;
 	cout << "Total number of cars denied: " << car_denied << endl;
 
 	return 0;
