@@ -95,8 +95,9 @@ int main(){
 
 	for (size_t i = 0; i < wash_machines.size(); i++)
 	{
-		cout << "Average waiting time for first machine: " << averagers[i].average_time() << endl;
-		cout << "Total number of cars serviced by first machine: " << averagers[i].how_many_cars() << endl;
+		cout << endl;
+		cout << "Average waiting time for machine #" << i + 1 << ": " << averagers[i].average_time() << endl;
+		cout << "Total number of cars serviced by machine #" << i+1 << ": " << averagers[i].how_many_cars() << endl;
 	}
 
 	cout << "Total number of cars denied: " << car_denied << endl;
