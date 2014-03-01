@@ -4,37 +4,7 @@
 #include <iostream>
 
 namespace car_wash{
-	class Arrival{
-	public:
-		Arrival(double);
-		bool is_car_coming();
 
-	private:
-		double p_rate;
-	};
-
-	class Wash_Machine{
-	public:
-		Wash_Machine(int);
-		void one_second();
-		bool is_busy();
-		void start_washing();
-
-	private:
-		int time_for_wash, wash_time_left;
-	};
-	
-	class Averager{
-	public:
-		Averager();
-		void plus_next_number(int);
-		int how_many_cars();
-		double average_time();
-
-	private:
-		double sum;
-		int count;
-	};
 };
 
 //#include "car_wash.cpp"
