@@ -1,11 +1,11 @@
-#include "car_wash.h"
+#include "Car_Wash.h"
 #include "Queue.h"
 #include <iostream>
 #include <time.h>
 #include <vector>
 
 using namespace std;
-using namespace car_wash;
+
 
 int main(){
 
