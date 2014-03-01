@@ -1,5 +1,5 @@
-#ifndef CAR_WASH_H_
-#define CAR_WASH_H_
+#ifndef CAR_WASH_H
+#define CAR_WASH_H
 
 #include <iostream>
 

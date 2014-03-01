@@ -76,16 +76,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\car_wash.h" />
+    <ClInclude Include="..\..\Car_Wash.h" />
     <ClInclude Include="..\..\Queue.h" />
     <ClInclude Include="Arrival.h" />
     <ClInclude Include="Averager.h" />
     <ClInclude Include="Wash_Machine.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\car_wash.cpp" />
+    <ClCompile Include="..\..\Car_Wash.cpp" />
     <ClCompile Include="..\..\main.cpp" />
     <ClCompile Include="..\..\Queue.cpp" />
+    <ClCompile Include="Arrival.cpp" />
+    <ClCompile Include="Averager.cpp" />
+    <ClCompile Include="Wash_Machine.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

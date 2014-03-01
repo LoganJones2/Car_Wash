@@ -1,3 +1,6 @@
+#ifndef AVERAGER_H
+#define AVERAGER_H
+
 class Averager{
 public:
 	Averager();
@@ -9,3 +12,5 @@ private:
 	double sum;
 	int count;
 };
+
+#endif

@@ -1,3 +1,6 @@
+#ifndef ARRIVAL_H
+#define ARRIVAL_H
+
 class Arrival{
 public:
 	Arrival(double);
@@ -6,3 +9,5 @@ public:
 private:
 	double p_rate;
 };
+
+#endif

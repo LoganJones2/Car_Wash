@@ -1,3 +1,5 @@
+#ifndef WASH_MACHINE_H
+#define WASH_MACHINE_H
 class Wash_Machine{
 public:
 	Wash_Machine(int);
@@ -8,3 +10,5 @@ public:
 private:
 	int time_for_wash, wash_time_left;
 };
+
+#endif
