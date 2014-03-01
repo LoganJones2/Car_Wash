@@ -13,6 +13,7 @@ int main(){
 	int number_of_washers;
 	int wash_time;
 	float arrival_rate;
+
 	cout << "Enter simulation length: ";
 	cin >> simulation_length;
 	cout << "Enter number of washers: ";
@@ -22,9 +23,12 @@ int main(){
 	cout << "Enter Arrival rate: ";
 	cin >> arrival_rate;
 
+	/*
 	vector<Wash_Machine> wash_machines;
 	vector<Averager> averagers;
 	vector<Queue<int>> queues;
+	
+
 	for (size_t i = 0; i < number_of_washers; i++)
 	{
 		Wash_Machine new_machine(wash_time);
@@ -37,6 +41,7 @@ int main(){
 		averagers.push_back(new_averager);
 	}
 
+	/*
 	Arrival car_generator(arrival_rate);
 
 	int car_denied = 0; 
@@ -100,7 +105,7 @@ int main(){
 		cout << "Total number of cars serviced by machine #" << i+1 << ": " << averagers[i].how_many_cars() << endl;
 	}
 
-	cout << "Total number of cars denied: " << car_denied << endl;
+	cout << "Total number of cars denied: " << car_denied << endl;*/
 
 	return 0;
 }

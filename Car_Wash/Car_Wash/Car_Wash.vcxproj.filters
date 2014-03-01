@@ -18,16 +18,16 @@
     <ClInclude Include="..\..\Queue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Arrival.h">
+    <ClInclude Include="..\..\Car_Wash.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Averager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Wash_Machine.h">
+    <ClInclude Include="Arrival.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Car_Wash.h">
+    <ClInclude Include="Wash_Machine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
