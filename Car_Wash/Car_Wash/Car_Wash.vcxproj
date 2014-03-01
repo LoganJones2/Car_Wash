@@ -78,6 +78,9 @@
   <ItemGroup>
     <ClInclude Include="..\..\car_wash.h" />
     <ClInclude Include="..\..\Queue.h" />
+    <ClInclude Include="Arrival.h" />
+    <ClInclude Include="Averager.h" />
+    <ClInclude Include="Wash_Machine.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\car_wash.cpp" />

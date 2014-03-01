@@ -19,25 +19,25 @@ int main(){
 	cin >> number_of_washers;
 	cout << "Enter washing time: ";
 	cin >> wash_time;
-	cout << "Enter arrival rate: ";
+	cout << "Enter Arrival rate: ";
 	cin >> arrival_rate;
 
-	vector<wash_machine> wash_machines;
-	vector<averager> averagers;
+	vector<Wash_Machine> wash_machines;
+	vector<Averager> averagers;
 	vector<Queue<int>> queues;
 	for (size_t i = 0; i < number_of_washers; i++)
 	{
-		wash_machine new_machine(wash_time);
+		Wash_Machine new_machine(wash_time);
 		wash_machines.push_back(new_machine);
 
 		Queue<int>  new_queue;
 		queues.push_back(new_queue);
 
-		averager new_averager;
+		Averager new_averager;
 		averagers.push_back(new_averager);
 	}
 
-	arrival car_generator(arrival_rate);
+	Arrival car_generator(arrival_rate);
 
 	int car_denied = 0; 
 	

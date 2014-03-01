@@ -4,18 +4,18 @@
 #include <iostream>
 
 namespace car_wash{
-	class arrival{
+	class Arrival{
 	public:
-		arrival(double);
+		Arrival(double);
 		bool is_car_coming();
 
 	private:
 		double p_rate;
 	};
 
-	class wash_machine{
+	class Wash_Machine{
 	public:
-		wash_machine(int);
+		Wash_Machine(int);
 		void one_second();
 		bool is_busy();
 		void start_washing();
@@ -24,9 +24,9 @@ namespace car_wash{
 		int time_for_wash, wash_time_left;
 	};
 	
-	class averager{
+	class Averager{
 	public:
-		averager();
+		Averager();
 		void plus_next_number(int);
 		int how_many_cars();
 		double average_time();
