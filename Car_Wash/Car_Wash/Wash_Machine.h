@@ -9,6 +9,7 @@ public:
 	void one_second();
 	bool is_busy();
 	void start_washing(int);
+	int average_wait_time();
 
 private:
 	int time_for_wash, wash_time_left;

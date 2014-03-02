@@ -21,3 +21,8 @@ void Wash_Machine::start_washing(int car_id){
 bool Wash_Machine::is_busy(){
 	return wash_time_left > 0;
 }
+
+int Wash_Machine::average_wait_time()
+{
+	return average.average_time();
+}

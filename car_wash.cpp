@@ -1,5 +1,6 @@
 #include "Car_Wash.h"
 #include <time.h>
+#include <iostream>
 
 Car_Wash::Car_Wash(int new_simulation_length, float new_arrival_rate)
 {
@@ -25,12 +26,12 @@ void Car_Wash::set_machine_wash_time(int index, int time)
 
 int Car_Wash::denied()
 {
-	return 0;
+	return number_denied;
 }
 
 double Car_Wash::average_wait(int index)
 {
-	return 0;
+	return wash_machines[index].average_wait_time();
 }
 
 double Car_Wash::average_wait()
@@ -74,9 +75,11 @@ void Car_Wash::run_scenario()
 			if (shortest_queue() == -1)
 			{
 				number_denied++;
+				std::cout << "car denied" << std::endl;
 			}
 			else
 			{
+				std::cout << "car added to queue " << shortest_queue() << std::endl;
 				queues[shortest_queue()].push(i);
 			}
 		}
@@ -86,11 +89,13 @@ void Car_Wash::run_scenario()
 		{
 			if (!wash_machines[j].is_busy() && !queues[j].is_empty())
 			{
+				std::cout << "machine starting: " << j << std::endl;
 				wash_machines[j].start_washing(i - queues[j].get_front());
 				queues[j].pop();
 			}
 			else if (!wash_machines[j].is_busy() && queues[j].is_empty() && longest_queue() != -1)
 			{
+				std::cout << "machine" << j << " is taking car from queue " << longest_queue() << std::endl;
 				wash_machines[j].start_washing(i - queues[longest_queue()].get_front());
 				queues[longest_queue()].pop();
 			}
@@ -132,13 +137,16 @@ int Car_Wash::longest_queue()
 	int longest_queue = -1;
 	for (size_t i = 0; i < queues.size(); i++)
 	{
-		if (longest_queue == -1)
+		if (longest_queue == -1 && !queues[i].is_empty())
 		{
 			longest_queue = i;
 		}
-		else if (queues[i].get_size() > queues[longest_queue].get_size())
+		else if (!queues[i].is_empty())
 		{
-			longest_queue = i;
+			if (queues[i].get_size() > queues[longest_queue].get_size())
+			{
+				longest_queue = i;
+			}
 		}
 	}
 	return longest_queue;

@@ -29,6 +29,8 @@ int main(){
 	{
 		car_wash.add_machine(wash_time);
 	}
+
+	car_wash.run_scenario();
 	/*
 	
 	srand(time(NULL));
