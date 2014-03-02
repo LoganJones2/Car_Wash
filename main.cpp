@@ -10,8 +10,8 @@ using namespace std;
 int main(){
 
 	int simulation_length;
-	int number_of_washers;
-	int wash_time;
+	int number_of_washers = 0;
+	int wash_time = 0;
 	float arrival_rate;
 
 	cout << "Enter simulation length: ";
@@ -23,28 +23,13 @@ int main(){
 	cout << "Enter Arrival rate: ";
 	cin >> arrival_rate;
 
-	/*
-	vector<Wash_Machine> wash_machines;
-	vector<Averager> averagers;
-	vector<Queue<int>> queues;
-	
+	Car_Wash car_wash(simulation_length, arrival_rate);
 
 	for (size_t i = 0; i < number_of_washers; i++)
 	{
-		Wash_Machine new_machine(wash_time);
-		wash_machines.push_back(new_machine);
-
-		Queue<int>  new_queue;
-		queues.push_back(new_queue);
-
-		Averager new_averager;
-		averagers.push_back(new_averager);
+		car_wash.add_machine(wash_time);
 	}
-
 	/*
-	Arrival car_generator(arrival_rate);
-
-	int car_denied = 0; 
 	
 	srand(time(NULL));
 

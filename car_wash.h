@@ -18,6 +18,9 @@ private:
 	std::vector<Queue<int>> queues;
 	
 	void advance_simulation();
+	int shortest_queue();
+
+	Arrival *arrival;
 public:
 	Car_Wash(int, float);		
 	void add_machine(int);					// Add a new machine
@@ -28,6 +31,7 @@ public:
 	int serviced(int);						// Return number serviced by machine at index
 	int serviced();							// Return number serviced by all machines
 	int count();							// Return number of washers
+	void run_scenario();
 
 };
 

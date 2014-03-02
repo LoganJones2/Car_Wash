@@ -8,7 +8,7 @@ public:
 	Wash_Machine(int);
 	void one_second();
 	bool is_busy();
-	void start_washing();
+	void start_washing(int);
 
 private:
 	int time_for_wash, wash_time_left;

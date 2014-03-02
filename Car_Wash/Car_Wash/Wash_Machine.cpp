@@ -12,8 +12,9 @@ void Wash_Machine::one_second(){
 	}
 }
 
-void Wash_Machine::start_washing(){
+void Wash_Machine::start_washing(int car_id){
 	assert(!is_busy());
+	average.plus_next_number(car_id);
 	wash_time_left = time_for_wash;
 }
 
