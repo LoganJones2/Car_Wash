@@ -19,7 +19,7 @@ private:
 	
 	void advance_simulation();
 	int shortest_queue();
-
+	int longest_queue();
 	Arrival *arrival;
 public:
 	Car_Wash(int, float);		
