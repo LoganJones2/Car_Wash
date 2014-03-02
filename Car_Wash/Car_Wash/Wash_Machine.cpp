@@ -22,7 +22,12 @@ bool Wash_Machine::is_busy(){
 	return wash_time_left > 0;
 }
 
-int Wash_Machine::average_wait_time()
+int Wash_Machine::average_wait()
 {
 	return average.average_time();
+}
+
+int Wash_Machine::serviced()
+{
+	return average.how_many_cars();
 }

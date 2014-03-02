@@ -31,27 +31,37 @@ int Car_Wash::denied()
 
 double Car_Wash::average_wait(int index)
 {
-	return wash_machines[index].average_wait_time();
+	return wash_machines[index].average_wait();
 }
 
 double Car_Wash::average_wait()
 {
-	return 0;
+	double sum = 0;
+	for (size_t i = 0; i < wash_machines.size(); i++)
+	{
+		sum += wash_machines[i].average_wait();
+	}
+	return sum / wash_machines.size();
 }
 
 int Car_Wash::serviced(int index)
 {
-	return 0;
+	return wash_machines[index].serviced();
 }
 
 int Car_Wash::serviced()
 {
-	return 0;
+	int sum = 0;
+	for (size_t i = 0; i < wash_machines.size(); i++)
+	{
+		sum += wash_machines[i].serviced();
+	}
+	return sum;
 }
 
 int Car_Wash::count()
 {
-	return 0;
+	return wash_machines.size();
 }
 
 void Car_Wash::advance_simulation()
