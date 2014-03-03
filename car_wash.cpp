@@ -1,7 +1,12 @@
 #include "Car_Wash.h"
 #include <time.h>
 #include <iostream>
+#include <iomanip>
 
+/**
+* @param new_simulation_length the user input length of the simulation
+* @param new_arrival_rate the user input arrival rate
+*/
 Car_Wash::Car_Wash(int new_simulation_length, float new_arrival_rate)
 {
 	simulation_length = new_simulation_length;
@@ -10,6 +15,10 @@ Car_Wash::Car_Wash(int new_simulation_length, float new_arrival_rate)
 	arrival = new Arrival(new_arrival_rate);
 }
 
+/**
+ * add an instance of wash_machine to the wash_machines vector
+ * @param work_time set the length of a wash cycle
+ */
 void Car_Wash::add_machine(int work_time)
 {
 	Wash_Machine wash_machine(work_time);
@@ -19,21 +28,22 @@ void Car_Wash::add_machine(int work_time)
 	queues.push_back(queue);
 }
 
-void Car_Wash::set_machine_wash_time(int index, int time)
-{
-
-}
-
-int Car_Wash::denied()
-{
-	return number_denied;
-}
-
+/**
+ * get the average wait time for a single wash_machine instance in
+ * the wash_machines vector
+ * @param index the index of the wash_machine instance
+ * @return a double
+ */
 double Car_Wash::average_wait(int index)
 {
 	return wash_machines[index].average_wait();
 }
 
+/**
+ * get the average wait time for all wash_machine instances in the
+ * wash_machines vector
+ * @return a double
+ */
 double Car_Wash::average_wait()
 {
 	double sum = 0;
@@ -44,11 +54,22 @@ double Car_Wash::average_wait()
 	return sum / wash_machines.size();
 }
 
+/**
+ * return number of cars serviced by a wash_machine instance
+ * @param index the index of the wash_machine instance in the
+ * wash_machines vector
+ * @return an integer
+ */
 int Car_Wash::serviced(int index)
 {
 	return wash_machines[index].serviced();
 }
 
+/**
+ * return number of cars serviced by all wash_machine instances
+ * in the wash_machines vector
+ * @return an integer
+ */
 int Car_Wash::serviced()
 {
 	int sum = 0;
@@ -59,11 +80,9 @@ int Car_Wash::serviced()
 	return sum;
 }
 
-int Car_Wash::count()
-{
-	return wash_machines.size();
-}
-
+/**
+ * advances the wash machines in a simulation by one time unit
+ */
 void Car_Wash::advance_simulation()
 {
 	for (size_t i = 0; i < wash_machines.size(); i++)
@@ -72,6 +91,10 @@ void Car_Wash::advance_simulation()
 	}
 }
 
+/**
+ * run the scenario and output the results of the scenario to the
+ * console
+ */
 void Car_Wash::run_scenario()
 {
 	srand(time(NULL));
@@ -85,11 +108,9 @@ void Car_Wash::run_scenario()
 			if (shortest_queue() == -1)
 			{
 				number_denied++;
-				std::cout << "car denied" << std::endl;
 			}
 			else
 			{
-				std::cout << "car added to queue " << shortest_queue() << std::endl;
 				queues[shortest_queue()].push(i);
 			}
 		}
@@ -99,18 +120,21 @@ void Car_Wash::run_scenario()
 		{
 			if (!wash_machines[j].is_busy() && !queues[j].is_empty())
 			{
-				std::cout << "machine starting: " << j << std::endl;
 				wash_machines[j].start_washing(i - queues[j].get_front());
 				queues[j].pop();
 			}
 			else if (!wash_machines[j].is_busy() && queues[j].is_empty() && longest_queue() != -1)
 			{
-				std::cout << "machine" << j << " is taking car from queue " << longest_queue() << std::endl;
 				wash_machines[j].start_washing(i - queues[longest_queue()].get_front());
 				queues[longest_queue()].pop();
 			}
 		}
-
+		// Uncomment the following to allow dynamically addign machines reach a desired serviced rate
+		//if (number_denied > 0 && serviced() / (number_denied + serviced() *.1) < .99)
+		//{
+		//	add_machine(20);
+		//	std::cout << "Machine added" << std::endl;
+		//}
 		advance_simulation();
 	}
 
@@ -122,9 +146,14 @@ void Car_Wash::run_scenario()
 			number_denied++;
 		}
 	}
+
+	report();
 }
 
-
+/**
+ * return the index of the shortest queue in the queues vector
+ * @return an integer
+ */
 int Car_Wash::shortest_queue()
 {		
 	int shortest_queue = -1;
@@ -142,6 +171,10 @@ int Car_Wash::shortest_queue()
 	return shortest_queue;
 }
 
+/**
+ * return the index of the longest queue in the queues vector
+ * @return an integer
+ */
 int Car_Wash::longest_queue()
 {
 	int longest_queue = -1;
@@ -161,3 +194,28 @@ int Car_Wash::longest_queue()
 	}
 	return longest_queue;
 }
+
+/**
+ * output a report of the results of a scenario to the console
+ */
+void Car_Wash::report()
+{
+	std::cout << "----------------------------------------------" << std::endl;
+	std::cout << "| Machine # | Number Serviced | Average Wait |" << std::endl;
+	std::cout << "----------------------------------------------" << std::endl;
+	for (size_t i = 0; i < wash_machines.size(); i++)
+	{
+		std::cout << std::left << "| " << std::setw(9) << i
+			<< " | " << std::right << std::setw(15) << std::setfill(' ') << serviced(i)
+			<< " | " << std::right << std::setw(12) << std::setfill(' ') << average_wait(i)
+			<< " | " << std::endl;
+	}
+	std::cout << "----------------------------------------------" << std::endl;
+	std::cout << std::left << "| " << std::setw(9) << "Facility"
+		<< " | " << std::right << std::setw(15) << std::setfill(' ') << serviced()
+		<< " | " << std::right << std::setw(12) << std::setfill(' ') << average_wait()
+		<< " | " << std::endl;
+	std::cout << "----------------------------------------------" << std::endl;
+	std::cout << "Total denied: " << number_denied << std::endl;
+}
+ 

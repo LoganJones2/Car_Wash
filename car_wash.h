@@ -10,29 +10,28 @@
 class Car_Wash
 {
 private:
-	int simulation_length;
-	float arrival_rate;
-	int number_denied;
+	int simulation_length;					// Length of the simulation
+	float arrival_rate;						// The car arrival rate
+	int number_denied;						// number of cars denied during scenario
 
 	std::vector<Wash_Machine> wash_machines;
 	std::vector<Queue<int>> queues;
 	
-	void advance_simulation();
-	int shortest_queue();
-	int longest_queue();
-	Arrival *arrival;
-public:
-	Car_Wash(int, float);		
-	void add_machine(int);					// Add a new machine
-	void set_machine_wash_time(int, int);	// Change length of machine's wash time
+	void advance_simulation();				// Move the washing machines 1 time unit forward
+	int shortest_queue();					// Return the sortest queue
+	int longest_queue();					// Return the longest queue
+	Arrival *arrival;						// Point to Arrival object created in constructor
 	int denied();							// Return number of cars denied service
 	double average_wait(int);				// Return average of machine at index
 	double average_wait();					// Return average of all machines
 	int serviced(int);						// Return number serviced by machine at index
 	int serviced();							// Return number serviced by all machines
-	int count();							// Return number of washers
-	void run_scenario();
-
+	void report();							// Output a report
+	
+public:
+	Car_Wash(int, float);					// Constructor
+	void add_machine(int);					// Add a new machine
+	void run_scenario();					// Run the scenario loop and output report
 };
 
 #endif

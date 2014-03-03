@@ -1,6 +1,7 @@
 #include "Arrival.h"
 #include <random>
 #include <assert.h>
+#include <time.h>
 
 Arrival::Arrival(double p){
 	assert(p >= 0);
