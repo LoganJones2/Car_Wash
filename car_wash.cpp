@@ -9,14 +9,17 @@ Car_Wash::Car_Wash(int new_simulation_length, float new_arrival_rate)
 	arrival_rate = new_arrival_rate;
 	number_denied = 0;
 	arrival = new Arrival(new_arrival_rate);
+	queue_full = 10;
 }
 
 void Car_Wash::add_machine(int work_time)
 {
+	// Create wash machine and store it in the wash_machines vector
 	Wash_Machine wash_machine(work_time);
 	wash_machines.push_back(wash_machine);
 
-	Queue<int> queue;
+	// Create queue and store it in the queues vector
+	std::queue<int> queue;
 	queues.push_back(queue);
 }
 
@@ -65,9 +68,10 @@ void Car_Wash::run_scenario()
 	// start scenario loop
 	for (size_t i = 1; i <= simulation_length; i++)
 	{
-		// put arriving cars into the shortest queue
+		// ask arrival object if a car has arrived
 		if (arrival->is_car_coming())
 		{
+			// deny a car or put it in the shortest queue
 			if (shortest_queue() == -1)
 			{
 				number_denied++;
@@ -78,55 +82,71 @@ void Car_Wash::run_scenario()
 			}
 		}
 
-
+		// put cars from the queue into idle wash machines
 		for (size_t j = 0; j < wash_machines.size(); j++)
 		{
-			if (!wash_machines[j].is_busy() && !queues[j].is_empty())
+			if (!wash_machines[j].is_busy() && !queues[j].empty())
 			{
-				wash_machines[j].start_washing(i - queues[j].get_front());
+				wash_machines[j].start_washing(i - queues[j].front());
 				queues[j].pop();
 			}
-			else if (!wash_machines[j].is_busy() && queues[j].is_empty() && longest_queue() != -1)
+			// if idle, get car from longest queue.
+			else if (!wash_machines[j].is_busy() 
+				&& queues[j].empty() 
+				&& longest_queue() != -1)
 			{
-				wash_machines[j].start_washing(i - queues[longest_queue()].get_front());
+				wash_machines[j].start_washing(i - queues[longest_queue()].front());
 				queues[longest_queue()].pop();
 			}
 		}
-		// Uncomment the following to allow dynamically addign machines reach a desired serviced rate
-		//if (number_denied > 0 && serviced() / (number_denied + serviced() *.1) < .99)
-		//{
-		//	add_machine(20);
-		//	std::cout << "Machine added" << std::endl;
-		//}
+
+		// Uncomment the following to allow dynamically adding machines 
+		/*
+			if (number_denied > 0 
+			&& serviced() / (number_denied + serviced() *.1) < .99)
+			{
+				add_machine(20);
+				std::cout << "Machine added" << std::endl;
+			}
+		*/
+
 		advance_simulation();
 	}
 
+	// deny any cars left in the queues after the simulation ends
 	for (size_t i = 0; i < queues.size(); i++)
 	{
-		while (!queues[i].is_empty())
+		while (!queues[i].empty())
 		{
 			queues[i].pop();
 			number_denied++;
 		}
 	}
 
+	// print a report on the simulation
 	report();
 }
 
 int Car_Wash::shortest_queue()
-{		
+{	
 	int shortest_queue = -1;
+	
+	// check the size of each queue in queues 
 	for (size_t i = 0; i < queues.size(); i++)
 	{
-		if (!queues[i].is_full() && shortest_queue == -1)
+		// set shortest_queue to first non-empty queue
+		if (!queues[i].size() <= queue_full && shortest_queue == -1)
 		{
 			shortest_queue = i;
 		}
-		else if (!queues[i].is_full() && queues[i].get_size() < queues[shortest_queue].get_size())
+		// compare current shortest_queue with the queue at index
+		else if (!queues[i].size() <= queue_full
+			&& queues[i].size() < queues[shortest_queue].size())
 		{
 			shortest_queue = i;
 		}
 	}
+
 	return shortest_queue;
 }
 
@@ -135,13 +155,13 @@ int Car_Wash::longest_queue()
 	int longest_queue = -1;
 	for (size_t i = 0; i < queues.size(); i++)
 	{
-		if (longest_queue == -1 && !queues[i].is_empty())
+		if (longest_queue == -1 && !queues[i].empty())
 		{
 			longest_queue = i;
 		}
-		else if (!queues[i].is_empty())
+		else if (!queues[i].empty())
 		{
-			if (queues[i].get_size() > queues[longest_queue].get_size())
+			if (queues[i].size() > queues[longest_queue].size())
 			{
 				longest_queue = i;
 			}

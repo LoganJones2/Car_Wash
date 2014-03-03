@@ -33,14 +33,14 @@ int main()
 		int wash_time = 0;
 		float arrival_rate;
 
-		string strInput = "";
-		stringstream myStream(strInput);
+		string input_str = "";
+		stringstream ss(input_str);
 
 		while (true)
 		{
 			cout << "Enter simulation length: ";
-			getline(cin, strInput);
-			if ((myStream >> simulation_length) && simulation_length > 0)
+			getline(cin, input_str);
+			if ((ss >> simulation_length) && simulation_length > 0)
 				break;
 			cout << "[ERROR] Input must be an integer greater than zero. \n\n";
 		}
@@ -48,8 +48,8 @@ int main()
 		while (true)
 		{
 			cout << "Enter number of wash machines: ";
-			getline(cin, strInput);
-			if ((myStream >> number_of_washers) && number_of_washers > 0)
+			getline(cin, input_str);
+			if ((ss >> number_of_washers) && number_of_washers > 0)
 				break;
 			cout << "[ERROR] Input must be an integer greater than zero. \n\n";
 		}
@@ -57,8 +57,8 @@ int main()
 		while (true)
 		{
 			cout << "Enter wash time: ";
-			getline(cin, strInput);
-			if ((myStream >> wash_time) && wash_time > 0 && wash_time < simulation_length)
+			getline(cin, input_str);
+			if ((ss >> wash_time) && wash_time > 0 && wash_time < simulation_length)
 				break;
 			cout << "[ERROR] Input must be an integer greater than zero and less than the simulation length. \n\n";
 		}
@@ -66,8 +66,8 @@ int main()
 		while (true)
 		{
 			cout << "Enter arrival rate: ";
-			getline(cin, strInput);
-			if ((myStream >> arrival_rate) && arrival_rate > 0 && arrival_rate <= 1)
+			getline(cin, input_str);
+			if ((ss >> arrival_rate) && arrival_rate > 0 && arrival_rate <= 1)
 				break;
 			cout << "[ERROR] Input must be a float between 1 and 0; \n\n";
 		}

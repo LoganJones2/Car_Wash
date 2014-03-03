@@ -9,14 +9,18 @@
 #define CAR_WASH_H
 
 #include <iostream>
-#include "Queue.h"
+//#include "Queue.h"
 #include "Arrival.h"
 #include "Wash_Machine.h"
 #include <vector>
+#include <queue>
 
 class Car_Wash
 {
 private:
+	//! The upper limit of cars in a queue.
+	int queue_full;
+
 	//! The length of the simulation.
 	int simulation_length;			
 
@@ -30,7 +34,7 @@ private:
 	std::vector<Wash_Machine> wash_machines;
 
 	//! The collection of queues. 
-	std::vector<Queue<int>> queues;
+	std::vector<std::queue<int>> queues;
 	
 	//! Advances the wash machines in a simulation by one time unit.
 	/*!
