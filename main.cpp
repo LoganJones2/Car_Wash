@@ -1,3 +1,9 @@
+/*! \mainpage
+*	Placeholder
+*
+* 
+*/
+
 #include "Car_Wash.h"
 #include "Queue.h"
 #include <iostream>
