@@ -1,7 +1,15 @@
-/*! \mainpage
-*	Placeholder
-*
-* 
+/*! 
+  \mainpage Team Information
+  
+  Authors:			Dan Hill
+					Logan Jones
+					Aldrick Biscette
+  Assignment Name:	Car Wash Simulator
+  Project Number:	2
+  Due Date:			March 11, 2014
+  Summary:			This application makes use of several custom classes to 
+					simulate the activity at a car wash business location.
+
 */
 
 #include "Car_Wash.h"
