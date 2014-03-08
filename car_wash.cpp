@@ -71,6 +71,7 @@ void Car_Wash::run_scenario()
 		// ask arrival object if a car has arrived
 		if (arrival->is_car_coming())
 		{
+			std::cout << arrival->is_car_coming();
 			// deny a car or put it in the shortest queue
 			if (shortest_queue() == -1)
 			{

@@ -4,11 +4,11 @@
 class Averager{
 public:
 	Averager();
-//	void plus_next_number(int);
-//	int how_many_cars();
-//	double average_time();
-//
-//private:
+	void plus_next_number(int);
+	int how_many_cars();
+	double average_time();
+
+private:
 	double sum;
 	int count;
 };

@@ -2,6 +2,7 @@
 #include <random>
 #include <assert.h>
 #include <time.h>
+#include <iostream>
 
 Arrival::Arrival(double p){
 	assert(p >= 0);
@@ -10,6 +11,5 @@ Arrival::Arrival(double p){
 }
 
 bool Arrival::is_car_coming(){
-	srand(time(NULL));
 	return rand() < p_rate * RAND_MAX;
 }
