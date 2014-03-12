@@ -15,21 +15,33 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\car_wash.h">
+    <ClInclude Include="Averager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Queue.h">
+    <ClInclude Include="Arrival.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Wash_Machine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Car_Wash.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\car_wash.cpp">
+    <ClCompile Include="Arrival.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\main.cpp">
+    <ClCompile Include="Averager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Queue.cpp">
+    <ClCompile Include="Wash_Machine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Car_Wash.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

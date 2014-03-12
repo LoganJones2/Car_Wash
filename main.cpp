@@ -1,106 +1,106 @@
-#include "car_wash.h"
-#include "Queue.h"
+/*! 
+  \mainpage Team Information
+  
+  Authors:			Dan Hill
+					Logan Jones
+					Aldrick Biscette
+  Assignment Name:	Car Wash Simulator
+  Project Number:	2
+  Due Date:			March 11, 2014
+  Summary:			This application makes use of several custom classes to 
+					simulate the activity at a car wash business location.
+
+*/
+
+#include "Car_Wash.h"
 #include <iostream>
-#include <time.h>
-#include <vector>
-
+#include <sstream>
+#include <string>
 using namespace std;
-using namespace car_wash;
 
-int main(){
+bool string_to_int(const string&, int&);
+int main()
+{	
+	char go = ' ';
 
-	int simulation_length;
-	int number_of_washers;
-	int wash_time;
-	float arrival_rate;
-	cout << "Enter simulation length: ";
-	cin >> simulation_length;
-	cout << "Enter number of washers: ";
-	cin >> number_of_washers;
-	cout << "Enter washing time: ";
-	cin >> wash_time;
-	cout << "Enter arrival rate: ";
-	cin >> arrival_rate;
-
-	vector<wash_machine> wash_machines;
-	vector<averager> averagers;
-	vector<Queue<int>> queues;
-	for (size_t i = 0; i < number_of_washers; i++)
+	while (go != 'q')
 	{
-		wash_machine new_machine(wash_time);
-		wash_machines.push_back(new_machine);
 
-		Queue<int>  new_queue;
-		queues.push_back(new_queue);
+		int simulation_length;
+		int number_of_washers = 0;
+		int wash_time = 0;
+		float arrival_rate;
 
-		averager new_averager;
-		averagers.push_back(new_averager);
-	}
+		string input_str = "";
 
-	arrival car_generator(arrival_rate);
-
-	int car_denied = 0; 
-	
-	srand(time(NULL));
-
-	for (size_t i = 1; i <= simulation_length; i++)
-	{
-		if (car_generator.is_car_coming())
+		while (true)
 		{
-			int shortest_queue = -1;
-			for (size_t j = 0; j < queues.size(); j++)
+			cout << "Enter simulation length: ";
+			getline(cin, input_str);
+			if (string_to_int(input_str, simulation_length)
+				&& simulation_length > 0)
 			{
-				if (!queues[j].is_full() && shortest_queue == -1)
-				{
-					shortest_queue = j;
-				}
-				else if (!queues[j].is_full() && queues[j].get_size() < queues[shortest_queue].get_size())
-				{
-					shortest_queue = j;
-				}
+				break;
 			}
-
-			if (shortest_queue == -1)
-			{
-				car_denied++;
-			}
-			else
-			{
-				queues[shortest_queue].push(i);
-				cout << "Car was placed in queue " << shortest_queue << endl;
-			}
+			cout << "[ERROR] Input must be an integer greater than zero. \n\n";
 		}
 
-	for (size_t j = 0; j < wash_machines.size(); j++)
+		while (true)
 		{
-			if (!wash_machines[j].is_busy() && !queues[j].is_empty())
+			
+			cout << "Enter number of wash machines: ";
+			getline(cin, input_str);
+			if (string_to_int(input_str, number_of_washers)
+				&& number_of_washers > 0)
 			{
-				averagers[j].plus_next_number(i - queues[j].get_front());
-				queues[j].pop();
-				wash_machines[j].start_washing();
+				break;
 			}
-
-			wash_machines[j].one_second();
+			cout << "[ERROR] Input must be an integer greater than zero. \n\n";
 		}
-	}
 
-	for (size_t i = 0; i < queues.size(); i++)
-	{
-		while (!queues[i].is_empty())
+		while (true)
 		{
-			queues[i].pop();
-			car_denied++;
+			cout << "Enter wash time: ";
+			getline(cin, input_str);
+			if (string_to_int(input_str, wash_time)
+				&& wash_time > 0
+				&& wash_time < simulation_length)
+			{
+				break;
+			}
+			cout << "[ERROR] Input must be an integer greater than zero and less than the simulation length. \n\n";
 		}
+
+		while (true)
+		{
+			
+			cout << "Enter arrival rate: ";
+			getline(cin, input_str);
+			stringstream ss(input_str);
+			if ((ss >> arrival_rate) && arrival_rate > 0 && arrival_rate <= 1)
+				break;
+			cout << "[ERROR] Input must be a float between 1 and 0; \n\n";
+		}
+
+		Car_Wash car_wash(simulation_length, arrival_rate);
+
+		for (size_t i = 0; i < number_of_washers; i++)
+		{
+			car_wash.add_machine(wash_time);
+		}
+
+		car_wash.run_scenario();
 	}
-
-	for (size_t i = 0; i < wash_machines.size(); i++)
-	{
-		cout << endl;
-		cout << "Average waiting time for machine #" << i + 1 << ": " << averagers[i].average_time() << endl;
-		cout << "Total number of cars serviced by machine #" << i+1 << ": " << averagers[i].how_many_cars() << endl;
-	}
-
-	cout << "Total number of cars denied: " << car_denied << endl;
-
 	return 0;
+}
+
+// stringstream failed my in horrible horrible ways so we have this now
+bool string_to_int(const string& str, int& result)
+{
+	stringstream ss(str);
+	if (ss >> result)
+	{
+		return true;
+	}
+	return false;
 }
